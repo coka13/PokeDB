@@ -17,6 +17,7 @@ def home():
         if 'pokemon_name' not in request.form:
             return 'No Pokémon found'
         pokemon_name = request.form['pokemon_name']
+            
         pokemon=createPokemon(pokemon_name)
         return render_template('index.html',pokemon=pokemon)
     else:
@@ -24,3 +25,4 @@ def home():
 
 if __name__ == '__main__':
     serve(app, host='0.0.0.0', port=5000)
+   # app.run(debug=True)

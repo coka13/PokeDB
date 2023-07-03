@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pokémon Database</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <title>PokéDB</title>
+    <link rel="icon" href="static/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .type-icon {
             display: inline-block;
             width: 32px;
             height: 32px;
-            vertical-align: middle;
+            vertical-align: left;
+            text-align: left;
         }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url('static/background.png');
+            background-size: cover;
+        }
+
+
+
+
+        .moves-container {
+    flex-grow: 1;
+    text-align: center;
+    overflow-y: auto;
+    max-height: 200px;
+position:absolute;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+}
+
+        .logo-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+           
+        }
+
     </style>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script>
         function toggleMoves() {
             var movesList = document.getElementById("moves-list");
@@ -19,6 +56,7 @@
             if (movesList.style.display === "none") {
                 movesList.style.display = "block";
                 movesButton.textContent = "Hide Moves";
+               
             } else {
                 movesList.style.display = "none";
                 movesButton.textContent = "Show Moves";
@@ -27,46 +65,72 @@
     </script>
 </head>
 <body>
-    <div class="text-center">
-        <h1>Pokémon Details</h1>
 
-        <form action="/" method="POST" class="mt-4 mb-4 ml-auto mr-auto" style="width: 15rem">
+    \
+
+        <img src="static/pokedb.png" class="logo-image">
+
+        <form action="/" method="POST" class="mt-4 mb-4">
             <div class="form-group">
-                <label for="pokemon-name" style="font-weight: bold;font-size: 15px ">Enter a Pokémon name or index:</label>
-                <input type="text" id="pokemon-name" name="pokemon_name" class="form-control" >
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+                <label for="pokemon-name" style="font-weight: bold; font-size: 20px;">Enter a Pokémon name or index:</label>
+                <input type="text" id="pokemon-name" name="pokemon_name" class="form-control">
+            </div>         
+            <div class="text-center">
+            <button type="submit" class="btn btn-primary" style="text-align: center;">Submit</button>
+        </div>  
+
         </form>
-
-        {% if pokemon %}
-        <div class="container">
-            <h2>{{ pokemon.name }}</h2>
-            <img src="{{ pokemon.image }}" alt="{{ pokemon.name }} Image" class="img-fluid">
-            <h3>Index:</h3>
-                 {{ pokemon.index }}
-            <h3>Type(s):</h3>
-            <ul class="list-unstyled">
-                {% for image in pokemon.type_images %}
-                    <li>
-                        <img class="type-icon" src="{{ url_for('static', filename='types/' + image) }}" alt="{{ pokemon.types[loop.index0].capitalize() }} Type">
-                        {{ pokemon.types[loop.index0].capitalize() }}
-                    </li>
-                {% endfor %}
-            </ul>
-           
-
-            <h3>Moves:</h3>
+       
+        <div class="w-100 text-center">
             <button id="moves-button" onclick="toggleMoves()" class="btn btn-primary">Show Moves</button>
-            <ul class="list-group" id="moves-list" style="display: none;">
+            {% if pokemon %}
+        <div class="w-100 moves-container text-center">
+            <ul class="list-group" id="moves-list" style="display: none; ">
                 {% for move in pokemon.moves %}
-                        <div >{{ move.name }}</div>
+                    <li class="list-group-item">{{ move.name }}</li>
                 {% endfor %}
             </ul>
         </div>
-        {% endif %}
     </div>
+       
+
+            <div class="pokemon-image">
+                <h4 class="text-center text-center-mobile">{{ pokemon.name }}</h4>
+                <img src="{{ pokemon.image }}" alt="{{ pokemon.name }} Image" class="img-fluid mx-auto d-block">
+                <p class="text-center text-center-mobile" style="font-weight: bold;">id: {{ pokemon.index }}</p>
+                <h4 class="text-center text-center-mobile">Type(s):</h4>
+                
+                <ul class="list-unstyled font-weight-bold">
+                    {% for image in pokemon.type_images %}
+                        <li>
+                            <img class="type-icon" src="{{ url_for('static', filename='types/' + image) }}" alt="{{ pokemon.types[loop.index0].capitalize() }} Type" >
+                            {{ pokemon.types[loop.index0].capitalize() }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+    </div>
+           
+        {% endif %}
+      
+        <!-- Footer -->
+    <div class="footer" style=" text-align: left; font-size: small;" >
+        All rights reserved. Created by Daniel Uralsky
+        <div>
+        <!-- LinkedIn Link -->
+<a href="https://www.linkedin.com/in/daniel-uralsky/" target="_blank" rel="noopener noreferrer" style="color:black">
+    <i class="bi bi-linkedin"></i>
+</a>
+<!-- GitHub Link -->
+<a href="https://github.com/coka13" target="_blank" rel="noopener noreferrer" style="color:black">
+    <i class="bi bi-github"></i>
+</a>
+</div>
+    </div>
+    
 
     <!-- Bootstrap JS -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
