@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokémon Database</title>
+    <style>
+        .type-icon {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+        }
+    </style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function toggleMoves() {
+            var movesList = document.getElementById("moves-list");
+            var movesButton = document.getElementById("moves-button");
+            if (movesList.style.display === "none") {
+                movesList.style.display = "block";
+                movesButton.textContent = "Hide Moves";
+            } else {
+                movesList.style.display = "none";
+                movesButton.textContent = "Show Moves";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="text-center">
+        <h1>Pokémon Details</h1>
+
+        <form action="/" method="POST" class="mt-4 mb-4 ml-auto mr-auto" style="width: 15rem">
+            <div class="form-group">
+                <label for="pokemon-name" style="font-weight: bold;font-size: 15px ">Enter a Pokémon name or index:</label>
+                <input type="text" id="pokemon-name" name="pokemon_name" class="form-control" >
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        {% if pokemon %}
+        <div class="container">
+            <h2>{{ pokemon.name }}</h2>
+            <img src="{{ pokemon.image }}" alt="{{ pokemon.name }} Image" class="img-fluid">
+            <h3>Index:</h3>
+                 {{ pokemon.index }}
+            <h3>Type(s):</h3>
+            <ul class="list-unstyled">
+                {% for image in pokemon.type_images %}
+                    <li>
+                        <img class="type-icon" src="{{ url_for('static', filename='types/' + image) }}" alt="{{ pokemon.types[loop.index0].capitalize() }} Type">
+                        {{ pokemon.types[loop.index0].capitalize() }}
+                    </li>
+                {% endfor %}
+            </ul>
+           
+
+            <h3>Moves:</h3>
+            <button id="moves-button" onclick="toggleMoves()" class="btn btn-primary">Show Moves</button>
+            <ul class="list-group" id="moves-list" style="display: none;">
+                {% for move in pokemon.moves %}
+                        <div >{{ move.name }}</div>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
