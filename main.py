@@ -1,5 +1,4 @@
-import requests
-import json
+
 from flask import Flask, redirect, url_for, request, render_template
 from pokemon import Pokemon,createPokemon
 from waitress import serve
