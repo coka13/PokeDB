@@ -15,7 +15,7 @@ app = Flask(__name__)
 def home():
     if request.method == 'POST':
         if 'pokemon_name' not in request.form:
-            return 'No Pokémon found'
+            return 'No Pokemon found'
         pokemon_name = request.form['pokemon_name']
             
         pokemon=createPokemon(pokemon_name)
