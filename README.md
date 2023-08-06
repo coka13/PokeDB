@@ -17,7 +17,11 @@ Unofficial Pokémon API Integration: The application utilizes the unofficial Pok
 # Technologies Used:
 
 Flask: Python web framework used to build the web application and handle HTTP requests.
+
 Jinja2: Template engine integrated with Flask for rendering dynamic HTML templates.
+
 HTML/CSS: Front-end markup and styling to create an appealing user interface.
+
 Bootstrap: CSS framework used for responsive design and pre-built UI components.
+
 Unofficial Pokémon API: The web application interacts with the official Pokémon API to retrieve accurate and real-time information about various Pokémon species.
